@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ShopKeeper;
 use App\Form\ShopKeeperType;
 use App\Repository\ShopKeeperRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +16,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ShopKeeperController extends AbstractController
 {
     #[Route('/new', name: 'app_shop_keeper_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $shopKeeper = new ShopKeeper();
         $form = $this->createForm(ShopKeeperType::class, $shopKeeper);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $filename */
+            $file = $form->get('filename')->getData();
+
+            if ($file) {
+                $filename = $fileUploader->upload($file);
+                $shopKeeper->setFilename($filename);
+            }
 
             $shopKeeper->setManager($this->getUser());
 
