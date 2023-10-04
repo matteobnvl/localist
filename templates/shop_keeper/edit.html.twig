@@ -3,11 +3,17 @@
 {% block title %}Edit ShopKeeper{% endblock %}
 
 {% block body %}
-    <h1>Edit ShopKeeper</h1>
+    <div class="m-4 flex">
+        <a href="{{ path('app_dashboard') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">retour dashboard</a>
+        {{ include('shop_keeper/_delete_form.html.twig') }}
+    </div>
+    <div class="flex items-center justify-center">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Modifier mon commerce
+        </h1>
+    </div>
 
-    {{ include('shop_keeper/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_dashboard') }}">back to list</a>
-
-    {{ include('shop_keeper/_delete_form.html.twig') }}
+    <div class="w-2/3 mx-auto">
+        {{ include('shop_keeper/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 {% endblock %}
