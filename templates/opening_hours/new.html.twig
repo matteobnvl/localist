@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New OpeningHours{% endblock %}
+
+{% block body %}
+    <div class="m-4 flex">
+        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">retour</a>
+    </div>
+    <div class="w-2/3 mx-auto">
+        <table class="min-w-full bg-white border border-gray-200 divide-y divide-gray-200 shadow-sm">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jour</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matin</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Soir</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Est ouvert</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for opening_hour in opening_hours %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.day }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.openingTime|date('H:i') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.closingTime|date('H:i') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if opening_hour.isOpen %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    ouvert
+                                </span>
+                            {% else %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    fermé
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_opening_hours_edit', {'id' : opening_hour.id, 'shop_keeper': shop_keeper.id}) }}" class="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                                Éditer
+                            </a>
+                        </td>
+                        <td>
+                            {{ include('opening_hours/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if opening_hours|length < 7 %}
+            <div class="flex items-center justify-center">
+                <h1 class="text-3xl font-bold text-gray-900">
+                    Ajouter vos horaires
+                </h1>
+            </div>
+            <p class="text-red-600 text-center">{{ message_error }}</p>
+
+            {{ include('opening_hours/_form.html.twig') }}
+        {% endif %}
+    </div>
+{% endblock %}
