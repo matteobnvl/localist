@@ -42,7 +42,8 @@ class ShopKeeperController extends AbstractController
     {
         return $this->render('shop_keeper/show.html.twig', [
             'shop_keeper' => $shopKeeper,
-            'posts' => $shopKeeper->getPosts()
+            'posts' => $shopKeeper->getPosts(),
+            'notices' => $shopKeeper->getNotices()
         ]);
     }
 
