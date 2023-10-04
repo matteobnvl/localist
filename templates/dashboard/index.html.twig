@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ user.name }}</h1>
+    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    <h3>Vos magasins</h3>
+    <a href="{{ path('app_shop_keeper_new') }}">Ajouter un magasin</a>
+    {% if shop_keepers %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>StreetName</th>
+                    <th>PostalCode</th>
+                    <th>City</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for shop_keeper in shop_keepers %}
+                <tr>
+                    <td>{{ shop_keeper.id }}</td>
+                    <td>{{ shop_keeper.name }}</td>
+                    <td>{{ shop_keeper.streetName }}</td>
+                    <td>{{ shop_keeper.postalCode }}</td>
+                    <td>{{ shop_keeper.city }}</td>
+                    <td>
+                        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}">show</a>
+                        <a href="{{ path('app_shop_keeper_edit', {'id': shop_keeper.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+            <tr>
+                <td colspan="6">vous avez aucun magasin</td>
+            </tr>
+    {% endif %}
+</div>
+{% endblock %}
