@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ShopKeeper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +14,16 @@ class ShopKeeperType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('email')
+            ->add('phone')
             ->add('streetName')
             ->add('postalCode')
             ->add('city')
+            ->add('filename', FileType::class, [
+                'label' => 'Image de votre commerce',
+                'mapped' => false,
+                'required' => true
+            ])
         ;
     }
 
