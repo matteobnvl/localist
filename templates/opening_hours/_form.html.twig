@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+
+<div class="flex flex-wrap -mx-3 m-4">
+    <div class="w-1/5 px-3">
+        {{ form_label(form.day, 'Jour', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+        {{ form_widget(form.day, {
+            'attr': {
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                'disabled': edit ? 'disabled' : false
+            }
+        }) }}
+        {{ form_errors(form.day) }}
+    </div>
+    
+    
+    <div class="w-1/5 px-3">
+        {{ form_label(form.openingTime, 'Heure d\'ouverture', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+        {{ form_widget(form.openingTime, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        {{ form_errors(form.openingTime) }}
+    </div>
+    
+    <div class="w-1/5 px-3">
+        {{ form_label(form.closingTime, 'Heure de fermeture', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+        {{ form_widget(form.closingTime, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        {{ form_errors(form.closingTime) }}
+    </div>
+    
+    <div class="w-1/5 px-3 flex items-center">
+        {{ form_label(form.isOpen, 'Est ouvert', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+        {{ form_widget(form.isOpen, {'attr': {'class': 'form-checkbox h-5 w-5 text-gray-600'}}) }}
+        {{ form_errors(form.isOpen) }}
+    </div>
+    
+    <div class="w-1/5 px-3 flex items-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            {{ button_label|default('Ajouter') }}
+        </button>
+    </div>
+</div>
+
+
+{{ form_end(form) }}
+

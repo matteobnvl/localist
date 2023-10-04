@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_opening_hours_delete', {'id': opening_hour.id, 'shop_keeper': shop_keeper.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ opening_hour.id) }}">
+    <button class="px-4 py-2 bg-red-400 hover:bg-red-500 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">Supprimer</button>
+</form>
