@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notice index{% endblock %}
+
+{% block body %}
+    <h1>Notice index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PostedBy</th>
+                <th>Text</th>
+                <th>Note</th>
+                <th>PostedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notice in notices %}
+            <tr>
+                <td>{{ notice.id }}</td>
+                <td>{{ notice.postedBy }}</td>
+                <td>{{ notice.text }}</td>
+                <td>{{ notice.note }}</td>
+                <td>{{ notice.postedAt ? notice.postedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_notice_show', {'id': notice.id}) }}">show</a>
+                    <a href="{{ path('app_notice_edit', {'id': notice.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_notice_new') }}">Create new</a>
+{% endblock %}
