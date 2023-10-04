@@ -10,7 +10,6 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ user.name }}</h1>
-    <a href="{{ path('app_logout') }}">Se déconnecter</a>
     <h3>Vos magasins</h3>
     <a href="{{ path('app_shop_keeper_new') }}">Ajouter un magasin</a>
     {% if shop_keepers %}
