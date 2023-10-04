@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,11 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('url_image')
+            ->add('url_image', FileType::class, [
+                'label' => 'Image pour votre post',
+                'mapped' => false,
+                'required' => true
+            ])
         ;
     }
 
