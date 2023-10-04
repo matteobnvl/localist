@@ -14,6 +14,7 @@ class ShopKeeperType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description')
             ->add('email')
             ->add('phone')
             ->add('streetName')
