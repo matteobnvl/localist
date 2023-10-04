@@ -45,4 +45,26 @@ class ShopKeeperRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function getFiltered(array $filters)
+    {
+        $qb = $this->createQueryBuilder('sk');
+
+        if (!empty($filters['name'])) {
+            $qb->andWhere('sk.name LIKE :name')
+                ->setParameter(':name', '%' . $filters['name'] . '%');
+        }
+
+        if (!empty($filters['ville'])) {
+            $qb->andWhere('sk.city LIKE :ville')
+                ->setParameter(':ville', '%' . $filters['ville'] . '%');
+        }
+
+        if (!empty($filters['region'])) {
+            $qb->andWhere('sk.postalCode LIKE :region')
+                ->setParameter(':region', $filters['region'] . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
