@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello DashboardController!{% endblock %}
@@ -9,11 +10,20 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ user.name }}</h1>
-    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    
+    
     <h3>Vos magasins</h3>
-    <a href="{{ path('app_shop_keeper_new') }}">Ajouter un magasin</a>
+
+    <div class="flex justify-end mb-4">
+        <a href="{{ path('app_shop_keeper_new') }}" class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-blue-600 ">
+            Ajouter un magasin
+        </a>
+    </div>
+    
+    
+    
     {% if shop_keepers %}
+    {# <div data-te-datatable-init> 
         <table class="table">
             <thead>
                 <tr>
@@ -25,8 +35,8 @@
                     <th>actions</th>
                 </tr>
             </thead>
-            <tbody>
-            {% for shop_keeper in shop_keepers %}
+            <tbody> #}
+            {#{% for shop_keeper in shop_keepers %}
                 <tr>
                     <td>{{ shop_keeper.id }}</td>
                     <td>{{ shop_keeper.name }}</td>
@@ -41,10 +51,38 @@
             {% endfor %}
             </tbody>
         </table>
+    </div> #}
+
+
+{% for shop_keeper in shop_keepers %}
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-3">
+        <div class="md:flex">
+            <div class="p-8">
+                {# <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold"></div> #}
+                <p class="block mt-1 text-lg leading-tight font-medium text-black">{{ shop_keeper.name }}</p>
+                <p class="mt-2 text-gray-500">Street: {{ shop_keeper.streetName }}</p>
+                <p class="mt-2 text-gray-500">Postal Code: {{ shop_keeper.postalCode }}</p>
+                <p class="mt-2 text-gray-500">City: {{ shop_keeper.city }}</p>
+                <div class="flex space-x-3 mt-5">
+                    <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        Show
+                    </a>
+                    <a href="{{ path('app_shop_keeper_edit', {'id': shop_keeper.id}) }}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
     {% else %}
             <tr>
                 <td colspan="6">vous avez aucun magasin</td>
             </tr>
     {% endif %}
+
+
 </div>
 {% endblock %}
