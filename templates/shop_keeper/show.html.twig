@@ -75,4 +75,35 @@
     {% if app.user %}
         <a href="{{ path('app_post_new', {'shop_keeper': shop_keeper.id}) }}">Create new</a>
     {% endif %}
+
+    <h2>Avis du commerce</h2>
+    {% if app.user is null %}
+        <a href="{{ path('app_notice_new', {'shop_keeper': shop_keeper.id}) }}">Ajouter un commentaire</a>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PostedBy</th>
+                <th>Text</th>
+                <th>Note</th>
+                <th>PostedAt</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notice in notices %}
+            <tr>
+                <td>{{ notice.id }}</td>
+                <td>{{ notice.postedBy }}</td>
+                <td>{{ notice.text }}</td>
+                <td>{{ notice.note }}</td>
+                <td>{{ notice.postedAt ? notice.postedAt|date('d/m/Y') : '' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
