@@ -7,33 +7,40 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet"> -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {% block stylesheets %}
         {% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
     </head>
     <body>
-        <header class="bg-blue-600 p-4 text-white">
+        <header class="bg-blue-300 p-4 text-black-500" bg="{{asset('assets/joyeux.png')}}" >
             <div class="container mx-auto flex justify-between items-center">
                 <a href="{{ path('app_home') }}">
                     <h1 class="text-2xl font-semibold uppercase">
                         Localist
                     </h1>
                 </a>
-
+                
                 {% if app.user %}
-                    <a href="{{ path('app_dashboard') }}" class="bg-green-500 px-4 py-2 rounded text-white hover:bg-green-600">
+                    <div>
+                    <a href="{{ path('app_dashboard') }}" class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-green-600">
                         Dashboard
                     </a>
+                    <a href="{{ path('app_logout') }}"><i class=" ml-2 fa-solid fa-right-from-bracket" ></i></a>
+                    </div>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="bg-yellow-500 px-4 py-2 rounded text-white hover:bg-yellow-600">
                         Je suis commerçant
                     </a>
                 {% endif %}
+
+                
             </div>
         </header>
+        </div>
         {% block body %}{% endblock %}
     </body>
+    {% block javascripts %}
+    {% endblock %}
 </html>

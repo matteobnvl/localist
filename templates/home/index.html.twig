@@ -8,7 +8,62 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
+
+
+<div>
+    <div class="w-full">
+        <div>
+            <button type="button" class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 focus:outline-none w-full uppercase" id="dropdownButton">
+                Filtres
+            </button>
+        </div>
+    
+        <div class="mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 sticky top-0 z-50" id="dropdownContent" style="display: none;">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                {{ form_start(form, {'attr': {'class': 'flex'}}) }}
+                    
+                    <div class="w-1/3 m-5">
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'text-sm text-gray-700'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'}}) }}
+                    </div>
+
+                    <div class="w-1/3  m-5">
+                        {{ form_label(form.ville, null, {'label_attr': {'class': 'text-sm text-gray-700'}}) }}
+                        {{ form_widget(form.ville, {'attr': {'class': 'w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'}}) }}
+                    </div>
+                    <div class="w-1/3  m-5">
+                        {{ form_label(form.region, null, {'label_attr': {'class': 'text-sm text-gray-700'}}) }}
+                        {{ form_widget(form.region, {'attr': {'class': 'w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'}}) }}
+                    </div>
+                    <div class="m-5">
+                        <button type="submit" class="text-center bg-indigo-600 text-white rounded px-4 py-2 hover:bg-indigo-700 focus:outline-none">Filtrer</button>
+                    </div>
+                    
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-8 justify-items-center mb-9 my-5">
+
+        {% for shop_keeper in shop_keepers %}
+        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}">
+            <div class="bg-white overflow-hidden shadow rounded-lg mb-6 max-w-lg h-72 w-64 w-full transition transform hover:scale-105">
+                <div class="flex">
+                    <div class="w-1/3">
+                        <img src="..." alt="..." class="w-full h-32 object-cover">
+                    </div>
+                    <div class="w-2/3 p-4">
+                        <h5 class="text-lg font-bold mb-2 uppercase">{{ shop_keeper.name }}</h5> 
+                        <p class="text-gray-700 mb-3 ">{{ shop_keeper.streetName }}, {{ shop_keeper.city }}, {{ shop_keeper.postalCode}}</p>
+
+                    </div>
+                </div>
+            </div>
+        </a> 
+        {% endfor %}  
+    </div>
+        <br><br><br><br><br><br>
     <h1>Hello retrouvez tous les commerces prêt de chez vous !</h1>
 
     {% if shop_keepers %}
@@ -45,3 +100,15 @@
     {% endif %}
 </div>
 {% endblock %}
+
+{% block javascripts %}
+<script>
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownContent = document.getElementById('dropdownContent');
+    dropdownButton.addEventListener('click', () => {
+        const isHidden = dropdownContent.style.display === 'none';
+        dropdownContent.style.display = isHidden ? 'block' : 'none';
+    });
+</script>
+{% endblock %}
+

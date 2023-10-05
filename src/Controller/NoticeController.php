@@ -46,6 +46,7 @@ class NoticeController extends AbstractController
         return $this->render('notice/new.html.twig', [
             'notice' => $notice,
             'form' => $form,
+            'shop_keeper' => $shopKeeper
         ]);
     }
 

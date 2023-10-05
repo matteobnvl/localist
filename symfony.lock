@@ -26,6 +26,18 @@
             "./migrations/.gitignore"
         ]
     },
+    "fresh/doctrine-enum-bundle": {
+        "version": "9.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "fab86661c13bc12e4f14f706c86af09912d55bfb"
+        },
+        "files": [
+            "./src/DBAL/Types/.gitignore"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -257,5 +269,14 @@
     },
     "twig/extra-bundle": {
         "version": "v3.7.1"
+    },
+    "vich/uploader-bundle": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.13",
+            "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
+        }
     }
 }
