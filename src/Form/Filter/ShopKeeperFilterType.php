@@ -18,7 +18,7 @@ class ShopKeeperFilterType extends AbstractType
             'required' => false
         ])
         ->add('region', null, [
-            'label' => '=Numéro de département)',
+            'label' => 'Numéro de département',
             'required' => false
         ]);
     }

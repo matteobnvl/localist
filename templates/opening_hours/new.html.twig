@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="m-4 flex">
-        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">retour</a>
+        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mr-3"><i class="fa-solid fa-pen"></i> retour</a>
     </div>
     <div class="w-2/3 mx-auto">
         <table class="min-w-full bg-white border border-gray-200 divide-y divide-gray-200 shadow-sm">
@@ -51,8 +51,8 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path('app_opening_hours_edit', {'id' : opening_hour.id, 'shop_keeper': shop_keeper.id}) }}" class="px-4 py-2 bg-blue-400 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-                                Éditer
+                            <a href="{{ path('app_opening_hours_edit', {'id' : opening_hour.id, 'shop_keeper': shop_keeper.id}) }}" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+                                <i class="fa-solid fa-pen"></i> modifier
                             </a>
                         </td>
                         <td>
