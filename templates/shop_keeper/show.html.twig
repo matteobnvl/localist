@@ -106,6 +106,14 @@
         Derniers posts
     </h1>
 </div>
+<div class="flex items-center justify-center bg-gray-100">
+    {% if app.user %}
+        <button class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-green-600">
+            <a href="{{ path('app_post_new', {'shop_keeper': shop_keeper.id}) }}">Publier un post</a>
+        </button>    
+    {% endif %}
+</div>
+
 <div class="grid grid-cols-3 gap-8 justify-items-center bg-gray-100 pt-10 pb-10">
     {% for post in posts %}
         <div class="bg-white rounded-lg overflow-hidden w-96 shadow">
@@ -119,6 +127,12 @@
             <div class="h-42 p-4 overflow-y-auto">
                 <p class="text-gray-700 mb-4">{{ post.description }}</p>
             </div>
+            {% if app.user %}
+                <div class="flex mb-5">
+                    <a href="{{ path('app_post_edit', {'id': post.id, 'shop_keeper': shop_keeper.id}) }}"class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-green-600 mx-5">edit</a>
+                    {{ include('post/_delete_form.html.twig')}}
+                </div>
+            {% endif %}
         </div>        
     {% else %}
         <p>
@@ -131,7 +145,7 @@
     <h2 class="font-bold uppercase text-2xl">Avis du commerce</h2>
     {% if app.user is null %}
     <button class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-green-600">
-        <a href="{{ path('app_post_new', {'shop_keeper': shop_keeper.id}) }}">Create new</a>
+        <a href="{{ path('app_notice_new', {'shop_keeper': shop_keeper.id}) }}">Ajouter avis</a>
     </button>    
     {% endif %}
 </div>

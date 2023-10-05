@@ -55,7 +55,8 @@ class PostController extends AbstractController
         return $this->render('post/new.html.twig', [
             'post' => $post,
             'form' => $form,
-            'shop_keeper' => $shopKeeper
+            'shop_keeper' => $shopKeeper,
+            'isEdit' => true
         ]);
     }
 
@@ -67,29 +68,37 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    #[Route('/{id}/edit/{shop_keeper}', name: 'app_post_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager,int $shop_keeper, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $filename */
-            $file = $form->get('url_image')->getData();
+        $filenamePost = $post->getUrlImage();
 
-            if ($file) {
-                $filename = $fileUploader->upload($file);
-                $post->setUrlImage($filename);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('url_image')->getData() !== null) {
+                /** @var UploadedFile $filename */
+                $file = $form->get('url_image')->getData();
+
+                if ($file) {
+                    $filename = $fileUploader->upload($file);
+                    $post->setUrlImage($filename);
+                }
+            } else {
+                $post->setUrlImage($filenamePost);
             }
+            $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_shop_keeper_show', ['id' => $shop_keeper], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
-            'shop_keeper' => $post->getPostedBy()
+            'shop_keeper' => $post->getPostedBy(),
+            'isEdit' => true
         ]);
     }
 

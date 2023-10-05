@@ -18,7 +18,7 @@ class PostType extends AbstractType
             ->add('url_image', FileType::class, [
                 'label' => 'Image pour votre post',
                 'mapped' => false,
-                'required' => true
+                'required' => false,
             ])
         ;
     }
