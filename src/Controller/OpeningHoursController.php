@@ -86,29 +86,14 @@ class OpeningHoursController extends AbstractController
     #[Route('/{id}/edit/{shop_keeper}', name: 'app_opening_hours_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, OpeningHours $openingHour, EntityManagerInterface $entityManager, int $shop_keeper, OpeningHoursRepository $openingHoursRepository): Response
     {
+        $day = $openingHour->getDay();
         $form = $this->createForm(OpeningHoursType::class, $openingHour);
         $form->handleRequest($request);
 
-        $openingHours = $openingHoursRepository->findBy(['shopKeeper' => $shop_keeper]);
-
-        $days = [];
-        if (!empty($openingHours) && $form->isSubmitted()) {
-            foreach ($openingHours as $openingDayHour) {
-                array_push($days, $openingDayHour->getDay());
-            }
-
-            if (in_array($form->get('day')->getData(), $days)) {
-
-                return $this->render('opening_hours/edit.html.twig', [
-                    'opening_hour' => $openingHour,
-                    'form' => $form,
-                    'shop_keeper_id' => $shop_keeper,
-                    'edit' => true
-                ]);
-            }
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $openingHour->setDay($day);
+            $entityManager->persist($openingHour);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_opening_hours_new', ['shop_keeper' => $shop_keeper], Response::HTTP_SEE_OTHER);

@@ -21,8 +21,24 @@
                 {% for opening_hour in opening_hours %}
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.day }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.openingTime|date('H:i') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ opening_hour.closingTime|date('H:i') }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if opening_hour.openingTime %}
+                                {{ opening_hour.openingTime | date('H:i') }}
+                            {% else %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-red-800">
+                                    aucune
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if opening_hour.closingTime %}
+                                {{ opening_hour.closingTime | date('H:i') }}
+                            {% else %}
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-red-800">
+                                    aucune
+                                </span>
+                            {% endif %}
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             {% if opening_hour.isOpen %}
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
