@@ -45,7 +45,7 @@
     </div>
     <div class="flex items-center justify-center m-10">
         <h1 class="text-3xl font-bold text-gray-900">
-            Liste commerce
+            Retrouvez les commerces de votre région
         </h1>
     </div>
 
@@ -64,47 +64,15 @@
                         <div class="h-1/3">
                             <p class="line-clamp-3">{{shop_keeper.description}}</p>
                         </div>
+                        <div>
+                            <button>Voir commerce</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </a> 
         {% endfor %}  
     </div>
-        <br><br><br><br><br><br>
-    <h1>Hello retrouvez tous les commerces prêt de chez vous !</h1>
-
-    {% if shop_keepers %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>StreetName</th>
-                    <th>PostalCode</th>
-                    <th>City</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for shop_keeper in shop_keepers %}
-                <tr>
-                    <td>{{ shop_keeper.id }}</td>
-                    <td>{{ shop_keeper.name }}</td>
-                    <td>{{ shop_keeper.streetName }}</td>
-                    <td>{{ shop_keeper.postalCode }}</td>
-                    <td>{{ shop_keeper.city }}</td>
-                    <td>
-                        <a href="{{ path('app_shop_keeper_show', {'id': shop_keeper.id}) }}">show</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-            <tr>
-                <td colspan="6">vous avez aucun magasin</td>
-            </tr>
-    {% endif %}
 </div>
 {% endblock %}
 
