@@ -12,8 +12,6 @@
         {% block stylesheets %}
         {% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
     </head>
     <body>
         <header class="bg-blue-300 p-4 text-black-500" bg="{{asset('assets/joyeux.png')}}" >
@@ -43,4 +41,6 @@
         </div>
         {% block body %}{% endblock %}
     </body>
+    {% block javascripts %}
+    {% endblock %}
 </html>

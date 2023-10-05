@@ -3,6 +3,8 @@
 {% block title %}ShopKeeper{% endblock %}
 
 {% block body %}
+    <h1>ShopKeeper</h1>
+    <a href="{{ path('app_opening_hours_new', {'shop_keeper': shop_keeper.id}) }}">Ajouter horaire</a>
 
 {#<img src="{{'shop_keeper.image'}}" alt="img" width="100%">#}
 

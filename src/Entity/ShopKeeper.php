@@ -49,10 +49,14 @@ class ShopKeeper
     #[ORM\OneToMany(mappedBy: 'shopKeeper', targetEntity: Notice::class)]
     private Collection $notices;
 
+    #[ORM\OneToMany(mappedBy: 'shopKeeper', targetEntity: OpeningHours::class)]
+    private Collection $openingHours;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->notices = new ArrayCollection();
+        $this->openingHours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +228,36 @@ class ShopKeeper
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OpeningHours>
+     */
+    public function getOpeningHours(): Collection
+    {
+        return $this->openingHours;
+    }
+
+    public function addOpeningHour(OpeningHours $openingHour): static
+    {
+        if (!$this->openingHours->contains($openingHour)) {
+            $this->openingHours->add($openingHour);
+            $openingHour->setShopKeeper($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpeningHour(OpeningHours $openingHour): static
+    {
+        if ($this->openingHours->removeElement($openingHour)) {
+            // set the owning side to null (unless already changed)
+            if ($openingHour->getShopKeeper() === $this) {
+                $openingHour->setShopKeeper(null);
+            }
+        }
 
         return $this;
     }

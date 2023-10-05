@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Entity\ShopKeeper;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\FileUploader;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/new/{shop_keeper}', name: 'app_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,int $shop_keeper): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,int $shop_keeper, FileUploader $fileUploader): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -33,6 +34,14 @@ class PostController extends AbstractController
         $shopKeeper = $entityManager->getRepository(ShopKeeper::class)->find($shop_keeper);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $filename */
+            $file = $form->get('url_image')->getData();
+
+            if ($file) {
+                $filename = $fileUploader->upload($file);
+                $post->setUrlImage($filename);
+            }
 
             $post->setPostedBy($shopKeeper);
             $post->setCreatedAt((new DateTimeImmutable()));
@@ -46,6 +55,7 @@ class PostController extends AbstractController
         return $this->render('post/new.html.twig', [
             'post' => $post,
             'form' => $form,
+            'shop_keeper' => $shopKeeper
         ]);
     }
 
@@ -58,12 +68,19 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $filename */
+            $file = $form->get('url_image')->getData();
+
+            if ($file) {
+                $filename = $fileUploader->upload($file);
+                $post->setUrlImage($filename);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
@@ -72,6 +89,7 @@ class PostController extends AbstractController
         return $this->render('post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
+            'shop_keeper' => $post->getPostedBy()
         ]);
     }
 
