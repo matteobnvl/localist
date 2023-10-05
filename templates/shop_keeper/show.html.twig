@@ -114,14 +114,46 @@ height: 30rem;
         {% endfor %}
         </tbody>
     </table>
-    {% if app.user %}
-        <a href="{{ path('app_post_new', {'shop_keeper': shop_keeper.id}) }}">Create new</a>
-    {% endif %}
+    <div class="text-center">
+        <h2 class="font-bold uppercase text-2xl mb-3">Avis du commerce</h2>
+        {% if app.user %}
+        <button class="bg-blue-500 px-4 py-2 rounded text-white hover:bg-green-600">
+            <a href="{{ path('app_post_new', {'shop_keeper': shop_keeper.id}) }}">Create new</a>
+        </button>    
+        {% endif %}
+    </div>
 
-    <h2>Avis du commerce</h2>
+
     {% if app.user is null %}
         <a href="{{ path('app_notice_new', {'shop_keeper': shop_keeper.id}) }}">Ajouter un commentaire</a>
     {% endif %}
+
+
+        <div class="w-full h-72 overflow-x-auto overflow-y-hidden">
+                <div class="flex ">
+                    {% for notice in notices %}
+                        <div class="flex-none w-64 h-48 bg-gray-200 m-4 text-center rounded-xl">
+                            <div class="mt-10 font-semibold">   
+                                <p class="text-xl capitalize">{{notice.postedBy}}</p>
+                            </div> 
+                            <br>
+                            <div>    
+                                <p>{{notice.text}}</p>
+                            </div> 
+                            <br>
+                            {% for i in 1..5 %}
+                                {% if i <= notice.note %}
+                                    <span class="star filled text-yellow-600">&#9733;</span>
+                                {% else %}
+                                    <span class="star">&#9734;</span>
+                                {% endif %}  
+                            {% endfor %}    
+ 
+                        </div>
+                    {% endfor %} 
+                </div>
+        </div>
+
     <table class="table">
         <thead>
             <tr>
