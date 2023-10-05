@@ -57,12 +57,21 @@ class ShopKeeperController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_shop_keeper_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ShopKeeper $shopKeeper, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, ShopKeeper $shopKeeper, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(ShopKeeperType::class, $shopKeeper);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $filename */
+            $file = $form->get('filename')->getData();
+
+            if ($file) {
+                $filename = $fileUploader->upload($file);
+                $shopKeeper->setFilename($filename);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
