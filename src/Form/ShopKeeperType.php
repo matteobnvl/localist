@@ -23,7 +23,7 @@ class ShopKeeperType extends AbstractType
             ->add('filename', FileType::class, [
                 'label' => 'Image de votre commerce',
                 'mapped' => false,
-                'required' => true
+                'required' => false
             ])
         ;
     }

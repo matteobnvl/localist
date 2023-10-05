@@ -37,12 +37,13 @@ class ShopKeeperController extends AbstractController
             $entityManager->persist($shopKeeper);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', ['id' => $shopKeeper->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('shop_keeper/new.html.twig', [
             'shop_keeper' => $shopKeeper,
             'form' => $form,
+            'isEdit' => false
         ]);
     }
 
@@ -74,12 +75,13 @@ class ShopKeeperController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_shop_keeper_show', ['id' => $shopKeeper->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('shop_keeper/edit.html.twig', [
             'shop_keeper' => $shopKeeper,
             'form' => $form,
+            'isEdit' => true
         ]);
     }
 

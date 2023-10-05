@@ -46,7 +46,11 @@
 
     <div class="m-4">
         {{ form_label(form.filename, 'Image de votre commerce', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
-        {{ form_widget(form.filename, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        {% if not isEdit %}
+            {{ form_widget(form.filename, {'attr': {'required': 'required', 'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        {% else %}
+            {{ form_widget(form.filename, {'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}}) }}
+        {% endif %}
         {{ form_errors(form.filename) }}
     </div>
     <div class="m-4">
